@@ -7,12 +7,12 @@ public class ThreadStudy{
     //数据同步
     @Test
     public void dataSynchronization() throws Exception{
-        Thread thread2 = new Thread(this::getLocalDatabaseData);
-        thread2.start();
-        getCounterpartyDatabaseData();
-        thread2.join();
-        dataToCompare();
-        UpdateLocalData();
+//        Thread thread2 = new Thread(this::getLocalDatabaseData);
+//        thread2.start();
+//        getCounterpartyDatabaseData();
+//        thread2.join();
+//        dataToCompare();
+//        UpdateLocalData();
     }
 
     //获取对方数据库数据

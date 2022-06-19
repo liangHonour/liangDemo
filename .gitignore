@@ -1,2 +1,6 @@
 # 项目排除路径
-/RedisDemo/target/
+/*/target
+/.idea/*
+/*.iml
+/*/target/
+/.idea/
