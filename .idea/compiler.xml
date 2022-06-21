@@ -6,16 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="CollectionDemo" />
         <module name="ThreadDemo" />
         <module name="RedisDemo" />
-        <module name="CollectionDemo" />
+        <module name="ClassLoderDemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CollectionDemo" target="8" />
-      <module name="liangDemo" target="8" />
-      <module name="RedisDemo" target="8" />
-      <module name="ThreadDemo" target="8" />
+      <module name="TomcatDemoOne" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

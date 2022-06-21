@@ -7,7 +7,6 @@ public class CollectionStudy {
         ArrayBlockingQueue<Object> arr = new ArrayBlockingQueue<>(10);
         try {
             arr.put("sda");
-            arr.
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
