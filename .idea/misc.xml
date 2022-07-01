@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/bootDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-matcher-demo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

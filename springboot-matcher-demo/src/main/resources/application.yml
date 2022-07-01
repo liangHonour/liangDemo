@@ -1,0 +1,32 @@
+server:
+  port: 8887
+  shutdown: graceful
+
+
+  #bes:
+  #  max-threads: 88
+  #  max-keep-alive-requests: 1000
+    #min-spare-threads: 5
+  #  minSpareThreads: 11
+#  io-mode: NIO
+  #compression:
+  #  enabled: true
+  #ssl:
+  #  enabled: false
+  #  key-alias: besserver
+  #  key-password: changeit
+  #  key-store-password: changeit
+  #  key-store: C:\Users\desktop-pc\Desktop\test\server.jks
+  #bes:
+    #basedir: D:\test\bes10
+
+      #pattern: "%{X-Forwarded-For}i" %h %l %u %t "%r" %s %b
+spring:
+  mvc:
+    static-path-pattern=/resources/**:
+#management:
+#  endpoints:
+#    web:
+#      base-path: /actuator
+#      exposure:
+#        include: "*"

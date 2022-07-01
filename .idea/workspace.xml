@@ -4,14 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1463896b-8cfa-4e02-adc3-7b3eeb32836c" name="变更" comment="项目修订">
-      <change afterPath="$PROJECT_DIR$/BESDemo/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BESDemo/src/main/java/NodeDemo/NodeStudy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClassLoderDemo/src/main/java/ClassLoaderStudy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClassLoderDemo/src/main/java/object/ExpandClassLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClassLoderDemo/src/main/java/object/People.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ConfigDemo/pom.xml" afterDir="false" />
+    <list default="true" id="1463896b-8cfa-4e02-adc3-7b3eeb32836c" name="变更" comment="添加configDemo测试学习">
+      <change afterPath="$PROJECT_DIR$/ConfigDemo/src/main/java/SystemDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLDemo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLDemo/src/main/java/java/sql/SQLStudy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLDemo/src/main/java/util/MySQLUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestDemo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestDemo/src/main/java/com/liang/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestDemo/src/main/java/com/liang/swich/Defult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestDemo/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TestDemo/src/test/java/ModifierTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/SimpleApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/config/TestConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/config/bean/People.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/controller/SimpleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/extension/EmbeddedBesConfig.java_bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/extension/FakeValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/extension/GracefulShutdownBes.java_bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/java/com/bes/boot/sample/extension/GracefulShutdownTomcat.java_bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot-matcher-demo/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -37,6 +58,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="mavenHome" value="$PROJECT_DIR$/../../maven/apache-maven-3.5.0" />
+        <option name="useMavenConfig" value="true" />
         <option name="userSettingsFile" value="D:\work\maven\apache-maven-3.5.0\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
@@ -47,41 +69,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/work/Project/bootDemo&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "D:/work/Project/liangDemo",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\work\Project\liangDemo\TestDemo\src\main" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ClassLoaderStudy">
-    <configuration name="ClassLoaderStudy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ClassLoaderStudy" />
-      <module name="ClassLoderDemo" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PhoneCode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.liang.PhoneCode" />
-      <module name="RedisDemo" />
+  <component name="RunManager" selected="JUnit.ModifierTests.isAbstractTests">
+    <configuration name="Defult" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.liang.swich.Defult" />
+      <module name="TestDemo" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.liang.*" />
+          <option name="PATTERN" value="com.liang.swich.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -89,48 +107,50 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RedisStudy.demo1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="RedisDemo" />
+    <configuration name="SimpleApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bes.boot.sample.SimpleApplication" />
+      <module name="springboot-matcher-demo" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="com.bes.boot.sample.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.liang" />
-      <option name="MAIN_CLASS_NAME" value="com.liang.RedisStudy" />
-      <option name="METHOD_NAME" value="demo1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Defult.intTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.liang.swich.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.liang.swich" />
+      <option name="MAIN_CLASS_NAME" value="com.liang.swich.Defult" />
+      <option name="METHOD_NAME" value="intTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThreadStudy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ThreadDemo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="ModifierTests.isAbstractTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestDemo" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ThreadStudy" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="ModifierTests" />
+      <option name="METHOD_NAME" value="isAbstractTests" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThreadStudy.dataSynchronization" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ThreadDemo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+    <configuration name="SystemDemo.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ConfigDemo" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ThreadStudy" />
-      <option name="METHOD_NAME" value="dataSynchronization" />
+      <option name="MAIN_CLASS_NAME" value="SystemDemo" />
+      <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -138,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.ClassLoaderStudy" />
-        <item itemvalue="应用程序.PhoneCode" />
-        <item itemvalue="JUnit.RedisStudy.demo1" />
-        <item itemvalue="JUnit.ThreadStudy.dataSynchronization" />
-        <item itemvalue="JUnit.ThreadStudy" />
+        <item itemvalue="JUnit.ModifierTests.isAbstractTests" />
+        <item itemvalue="应用程序.Defult" />
+        <item itemvalue="JUnit.Defult.intTest" />
+        <item itemvalue="应用程序.SimpleApplication" />
+        <item itemvalue="JUnit.SystemDemo.test" />
       </list>
     </recent_temporary>
   </component>
@@ -184,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655777274455</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="添加configDemo测试学习">
+      <created>1656298324799</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656298324799</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +230,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="项目修订" />
-    <option name="LAST_COMMIT_MESSAGE" value="项目修订" />
+    <MESSAGE value="添加configDemo测试学习" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加configDemo测试学习" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -212,6 +240,21 @@
           <url>file://$PROJECT_DIR$/ClassLoderDemo/src/main/java/ClassLoaderStudy.java</url>
           <line>4</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../maven/Maven/org/springframework/boot/spring-boot-autoconfigure/1.5.4.RELEASE/spring-boot-autoconfigure-1.5.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration.java</url>
+          <line>372</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../maven/Maven/org/springframework/boot/spring-boot-autoconfigure/1.5.4.RELEASE/spring-boot-autoconfigure-1.5.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration.java</url>
+          <line>375</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../maven/Maven/org/springframework/boot/spring-boot-autoconfigure/1.5.4.RELEASE/spring-boot-autoconfigure-1.5.4.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration.java</url>
+          <line>383</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
