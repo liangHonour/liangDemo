@@ -17,19 +17,33 @@
         <module>ConfigDemo</module>
         <module>SQLDemo</module>
         <module>TestDemo</module>
+        <module>springbootDemo</module>
+        <module>EamilDemo</module>
     </modules>
 
     <properties>
+<!--        <spring.version>4.3.30.RELEASE</spring.version>-->
+
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
     <dependencies>
+
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>compile</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
+
     </dependencies>
 </project>

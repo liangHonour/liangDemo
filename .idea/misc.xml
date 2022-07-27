@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/springbootDemo" />
+    <file type="web" url="file://$PROJECT_DIR$/TestDemo" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/bootDemo/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-matcher-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/TestDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/springbootDemo/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/TomcatDemoOne/pom.xml" />
+        <option value="$PROJECT_DIR$/TransactionalDemo/pom.xml" />
+        <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </set>
     </option>
   </component>

@@ -1,0 +1,16 @@
+server:
+  port: 8887
+  shutdown: graceful
+
+
+
+spring:
+  mvc:
+    static-path-pattern=/resources/**:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    schema: classpath:db/schema-h2.sql
+    data: classpath:db/data-h2.sql
+    url: jdbc:mysql://101.43.65.207:3306/BESDatebase?useSSL=false
+    username: root
+    password: 123

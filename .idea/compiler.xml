@@ -8,23 +8,25 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ThreadDemo" />
         <module name="ClassLoderDemo" />
-        <module name="springboot-matcher-demo" />
         <module name="BESDemo" />
         <module name="CollectionDemo" />
         <module name="SQLDemo" />
         <module name="RedisDemo" />
         <module name="TestDemo" />
+        <module name="EamilDemo" />
         <module name="ConfigDemo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="1.8" />
       <module name="TomcatDemoOne" target="1.8" />
+      <module name="TransactionalDemo" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="demo" options="-parameters" />
+      <module name="springbootDemo" options="" />
     </option>
   </component>
 </project>
