@@ -19,17 +19,17 @@
         <module>TestDemo</module>
         <module>springbootDemo</module>
         <module>EamilDemo</module>
+        <module>SSHDemo</module>
     </modules>
 
     <properties>
-<!--        <spring.version>4.3.30.RELEASE</spring.version>-->
+        <!--        -->
 
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
     <dependencies>
-
 
         <dependency>
             <groupId>junit</groupId>
