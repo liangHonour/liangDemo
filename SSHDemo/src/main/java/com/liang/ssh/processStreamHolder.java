@@ -8,5 +8,5 @@ public class processStreamHolder {
 
     private OutputStream stdErr;
 
-    private InputStream stdIn
+    private InputStream stdIn;
 }
