@@ -1,21 +1,19 @@
-package com.liang;
+package com.liang.ssh;
 
-import com.liang.ssh.SSHConnection;
 import com.trilead.ssh2.Session;
+import org.junit.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+public class SSHConnectionTest {
 
-public class Main {
-
-    public static void main(String[] args) {
+    @Test
+    public void Test() throws Exception {
         String user = "root";
         String password = "yg1505272629";
         String hostName = "101.43.65.207";
         String privateKeyPath = "D:\\work\\TX_Key\\docker";
         SSHConnection sshConnection = new SSHConnection(user, password, privateKeyPath, hostName);
         Session session = sshConnection.connection();
-
+        session.execCommand("mkdir testliang");
         session.close();
     }
 }

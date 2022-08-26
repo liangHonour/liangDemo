@@ -33,9 +33,9 @@ public class SSHConnection {
      */
     private String password;
 
-    private int connectTimeout = 500;
-    private int readTimeout = 500;
-    private int kexTimeout = 500;
+    private int connectTimeout = 5 * 1000;
+    private int readTimeout = 5 * 1000;
+    private int kexTimeout = 5 * 1000;
 
     public SSHConnection() {
 
