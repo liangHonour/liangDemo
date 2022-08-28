@@ -1,6 +1,9 @@
 package com.liang.xmlParse;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -10,7 +13,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class XmlHelp {
     private final String url;
@@ -23,70 +28,68 @@ public class XmlHelp {
         initXmlHelp();
     }
 
-    public void updateLabel(String labelPath, List<Label> labels) {
+    public void updateLabel(String labelPath, LabelAttrs labels) {
         if (labelPath.indexOf("/") == 0) {
             labelPath = labelPath.substring(1);
+        }
+        if (labels == null) {
+            labels = new LabelAttrs();
         }
         updateLabel(this.root, labelPath, labels);
     }
 
-    private void updateLabel(Element root, String labelPath, List<Label> labels) {
+    private void updateLabel(Element root, String labelPath, LabelAttrs labels) {
         boolean flag = labelPath.contains("/");
+        HashMap<String, String> updateAttributes;
+        HashMap<String, String> checkAttributes;
         if (!flag) {
-            Label label = getLabel(labels, labelPath);
+            updateAttributes = labels.getUpdateAttributes(labelPath);
+            checkAttributes = labels.getCheckAttributes(labelPath);
             //如果该集合不属于修改列表则返回
-            if (label == null) {
-                return;
-            }
-            //如果集合为空则不需要修改直接返回
-            if (label.updateAttributes.isEmpty()) {
+            if (updateAttributes.isEmpty()) {
                 return;
             }
             NodeList nodes = root.getElementsByTagName(labelPath);
             if (nodeSisEmpty(nodes)) {
                 return;
             }
-            Set<String> checkLabelAttributeNames = label.checkAttributes.keySet();
+            Set<String> checkLabelAttributeNames = checkAttributes.keySet();
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node node = nodes.item(i);
                 //如果该标签不需要校验则直接进行修改
                 if (checkLabelAttributeNames.isEmpty()) {
-                    updateLabelAttribute(label.updateAttributes, node);
+                    updateLabelAttribute(updateAttributes, node);
                 } else {
                     //进行标签校验
                     Element element = (Element) node;
                     for (String checkLabelAttributeName : checkLabelAttributeNames) {
-                        String checkLabelAttributeValue = label.checkAttributes.get(checkLabelAttributeName);
+                        String checkLabelAttributeValue = checkAttributes.get(checkLabelAttributeName);
                         if (checkLabelAttributeValue.equals((element.getAttribute(checkLabelAttributeName)))) {
-                            updateLabelAttribute(label.updateAttributes, node);
+                            updateLabelAttribute(updateAttributes, node);
                         }
                     }
                 }
             }
         } else {
-            String tem = labelPath.substring(0, labelPath.indexOf("/"));
+            String temp = labelPath.substring(0, labelPath.indexOf("/"));
             labelPath = labelPath.substring(labelPath.indexOf("/") + 1);
-            NodeList nodes = root.getElementsByTagName(tem);
+            NodeList nodes = root.getElementsByTagName(temp);
             if (nodeSisEmpty(nodes)) {
                 return;
             }
-            Label label = getLabel(labels, tem);
-            flag = label != null;
-            Set<String> checkLabelAttributeNames = null;
-            if (flag) {
-                checkLabelAttributeNames = label.checkAttributes.keySet();
-            }
+            checkAttributes = labels.getCheckAttributes(temp);
+            Set<String> checkLabelAttributeNames = checkAttributes.keySet();
             for (int i = 0; i < nodes.getLength(); i++) {
                 Element element = (Element) nodes.item(i);
-                //如果label为空则直接进入下一个节点不需要进行校验
-                if (flag) {
+                if (!checkAttributes.isEmpty()) {
                     for (String checkLabelAttributeName : checkLabelAttributeNames) {
-                        String checkLabelAttributeValue = label.checkAttributes.get(checkLabelAttributeName);
+                        String checkLabelAttributeValue = checkAttributes.get(checkLabelAttributeName);
                         if (checkLabelAttributeValue.equals(element.getAttribute(checkLabelAttributeName))) {
                             updateLabel(element, labelPath, labels);
                         }
                     }
                 } else {
+                    //如果该标签不需要检验则直接进入下一次递归
                     updateLabel(element, labelPath, labels);
                 }
             }
@@ -109,11 +112,14 @@ public class XmlHelp {
         }
     }
 
-    public void createLabel(String labelPath, List<Label> labels) {
+    public void createLabel(String labelPath, LabelAttrs labels) {
+        if (labels == null) {
+            labels = new LabelAttrs();
+        }
         createLabel(root, labelPath, labels);
     }
 
-    public void createLabel(Element parentElement, String labelPath, List<Label> labels) {
+    public void createLabel(Element parentElement, String labelPath, LabelAttrs labels) {
         //首先我需要获得零时标签temp
         String temp = null;
         if (!labelPath.contains("/")) {
@@ -124,25 +130,65 @@ public class XmlHelp {
             temp = labelPath.substring(0, labelPath.indexOf("/"));
             labelPath = labelPath.substring(labelPath.indexOf("/") + 1);
         }
-        //创建一个子元素
-        Element childElement = createChildElement(temp);
-        //将子元素添加到父元素下面
-        parentAddChild(parentElement, childElement);
-        //给子元素添加属性
-        Label label = getLabel(labels, temp);
-        if (label!=null){
-            for (String updateAttributesName : label.updateAttributes.keySet()) {
-                String updateAttributesValue = label.updateAttributes.get(updateAttributesName);
-                childElement.setAttribute(updateAttributesName,updateAttributesValue);
+        HashMap<String, String> updateAttributes = labels.getUpdateAttributes(temp);
+        HashMap<String, String> checkAttributes = labels.getCheckAttributes(temp);
+        Element childElement;
+        //判断下一个符合标准的子节点是否存在，如果不存在则创建一个新的子节点
+        NodeList nodes = parentElement.getElementsByTagName(temp);
+        if (nodes != null && nodes.getLength() > 0) {
+            //如果子节点的下一个节点不需要创建的话进入下一个子节点也没用，所以直接退出递归
+            if (labelPath == null) {
+                return;
             }
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+                if (nodeDetection(node, checkAttributes)) {
+                    childElement = (Element) node;
+                    createLabel(childElement, labelPath, labels);
+                }
+            }
+        } else {
+            //如果没有符合标准的子元素则直接创建一个
+            childElement = createChildElement(temp);
+            //将子元素添加到父元素下面
+            parentAddChild(parentElement, childElement);
+            //给子元素添加属性
+            if (!updateAttributes.isEmpty()) {
+                for (String updateAttributesName : updateAttributes.keySet()) {
+                    String updateAttributesValue = updateAttributes.get(updateAttributesName);
+                    if ("text".equals(updateAttributesName)){
+                        childElement.setTextContent(updateAttributesValue);
+                    }else {
+                        childElement.setAttribute(updateAttributesName, updateAttributesValue);
+                    }
+                }
+            }
+            //出发出口条件，开始结束递归。
+            if (labelPath == null) {
+                return;
+            }
+            createLabel(childElement, labelPath, labels);
         }
-        //出发出口条件，开始结束递归。
-        if (labelPath == null) {
-            return;
-        }
-        createLabel(childElement, labelPath, labels);
+
+
     }
 
+    private boolean nodeDetection(Node node, HashMap<String, String> checkAttributes) {
+        if (node == null || checkAttributes == null || checkAttributes.isEmpty()) {
+            return false;
+        }
+        Element element = (Element) node;
+        for (String checkLabelAttributeName : checkAttributes.keySet()) {
+            String checkLabelAttributeValue = checkAttributes.get(checkLabelAttributeName);
+            if (checkLabelAttributeValue == null) {
+                return false;
+            }
+            if (!checkLabelAttributeValue.equals(element.getAttribute(checkLabelAttributeName))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * 创建一个子节点
@@ -151,7 +197,6 @@ public class XmlHelp {
      * @return 子节点的Element
      */
     private Element createChildElement(String labelName) {
-        Attr name = document.createAttribute("name");
         return document.createElement(labelName);
     }
 
@@ -214,22 +259,6 @@ public class XmlHelp {
         return (nodes == null || nodes.getLength() == 0);
     }
 
-    public Label getLabel(String labelName) {
-        return new Label(labelName);
-    }
-
-    private Label getLabel(List<Label> labels, String labelName) {
-        if (labels == null || labels.isEmpty()) {
-            return null;
-        }
-        for (Label label : labels) {
-            if (labelName.equals(label.labelName)) {
-                return label;
-            }
-        }
-        return null;
-    }
-
 
     public String getFileXml() {
         File file = new File(url);
@@ -249,54 +278,19 @@ public class XmlHelp {
         return null;
     }
 
-    public class Label {
-        private final String labelName;
-        private final HashMap<String, String> checkAttributes;
-        private final HashMap<String, String> updateAttributes;
-
-        private Label(String labelName) {
-            this.labelName = labelName;
-            this.checkAttributes = new HashMap<>();
-            this.updateAttributes = new HashMap<>();
-        }
-
-        public void setLabelUpdateAttributes(String updateAttributesName, String updateAttributesValue) {
-            if (updateAttributes.containsKey(updateAttributesName)) {
-                System.out.println("不允许传入相同标签");
-                return;
-            }
-            this.updateAttributes.put(updateAttributesName, updateAttributesValue);
-        }
-
-        public void setLabelCheckAttributes(String checkLabelAttributeName, String checkLabelAttributeValue) {
-            if (checkAttributes.containsKey(checkLabelAttributeName)) {
-                System.out.println("不允许传入相同标签");
-                return;
-            }
-            if (checkLabelAttributeValue == null) {
-                System.out.println("不允许传入空值");
-            }
-            if (updateAttributes.containsKey(checkLabelAttributeName)) {
-                System.out.println("不允许传入相同标签");
-                return;
-            }
-            this.updateAttributes.put(checkLabelAttributeName, checkLabelAttributeValue);
-        }
-    }
-
 
     public static void main(String[] args) {
         XmlHelp xmlHelp = new XmlHelp("D:\\stduy\\CloudeProject\\liangDemo\\FileDemo\\src\\main\\resources\\ssss.xml");
-        ArrayList<Label>  labels= new ArrayList<>();
-        Label peoples = xmlHelp.getLabel("peoples");
-        peoples.setLabelUpdateAttributes("name","人");
-        labels.add(peoples);
-        Label people1 = xmlHelp.getLabel("people1");
-        people1.setLabelUpdateAttributes("name","梁荣耀");
-        people1.setLabelUpdateAttributes("age","21");
-        people1.setLabelUpdateAttributes("text","喜欢美女");
-        labels.add(people1);
-        xmlHelp.createLabel("peoples/people1", labels);
+        LabelAttrs labelAttrs = new LabelAttrs();
+        HashMap<String, String> peoplesMap = new HashMap<>();
+        peoplesMap.put("name", "人");
+        labelAttrs.setLabelCheckAttributes("peoples", peoplesMap);
+        HashMap<String, String> people1Map = new HashMap<>();
+        people1Map.put("age", "21");
+        people1Map.put("name", "梁荣耀");
+        people1Map.put("text", "喜欢美女");
+        labelAttrs.setLabelUpdateAttributes("people2", people1Map);
+        xmlHelp.createLabel("peoples/people2", labelAttrs);
         xmlHelp.close();
     }
 }
