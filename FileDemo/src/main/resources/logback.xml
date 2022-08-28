@@ -1,19 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <springProperty scope="context" name="logName" source="logging.file.name" defaultValue="log.log"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
+    <springProperty defaultValue="log.log" name="logName" scope="context" source="logging.file.name"/>
     <!--定义日志文件的存储地址-->
-    <property name="logFile" value="cccc"/>
     <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
+    <property name="logFile" value="/aa/aa/aaass/aaa"/>
     <!-- 控制台输出 -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="console">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
     <!-- 输出到日志文件 -->
-    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logFile}bes.log</file>
+    <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="file">
+        <file>${logFile}/liang.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}.%d{yyyy-MM-dd}.%i</FileNamePattern>
@@ -26,15 +24,15 @@
     </appender>
 
     <!-- 自定义logger -->
-    <logger name="com.dispart" level="debug" additivity="false">
+    <logger additivity="false" level="debug" name="com.dispart">
         <appender-ref ref="console"/>
     </logger>
     <!--sql语句执行输出-->
-    <logger name="org.apache.ibatis" level="debug" additivity="false">
+    <logger additivity="false" level="debug" name="org.apache.ibatis">
         <appender-ref ref="console"/>
     </logger>
 
-    <root level="info" additivity="false">
+    <root additivity="false" level="info">
         <appender-ref ref="console"/>
     </root>
 </configuration>

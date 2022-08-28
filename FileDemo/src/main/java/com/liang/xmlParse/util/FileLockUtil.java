@@ -30,7 +30,6 @@ public class FileLockUtil {
         lock.release();
         raf.close();
         fc.close();
-        fileLock
 
     }
 
