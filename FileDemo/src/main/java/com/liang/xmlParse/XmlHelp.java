@@ -8,6 +8,7 @@ import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -21,6 +22,7 @@ public class XmlHelp {
     private final String url;
     private Document document;
     private Element root;
+    private final String ENCODING = "utf-8";
 
 
     public XmlHelp(String url) {
@@ -119,58 +121,19 @@ public class XmlHelp {
         createLabel(root, labelPath, labels);
     }
 
-    public void createLabel(Element parentElement, String labelPath, LabelAttrs labels) {
-        //首先我需要获得零时标签temp
-        String temp = null;
-        if (!labelPath.contains("/")) {
-            //如果路径中不包括"/"的话说明已经到节点末尾了，不需要再次进行递归，制造出口条件
-            temp = labelPath;
-            labelPath = null;
-        } else {
-            temp = labelPath.substring(0, labelPath.indexOf("/"));
-            labelPath = labelPath.substring(labelPath.indexOf("/") + 1);
-        }
-        HashMap<String, String> updateAttributes = labels.getUpdateAttributes(temp);
-        HashMap<String, String> checkAttributes = labels.getCheckAttributes(temp);
-        Element childElement;
-        //判断下一个符合标准的子节点是否存在，如果不存在则创建一个新的子节点
-        NodeList nodes = parentElement.getElementsByTagName(temp);
-        if (nodes != null && nodes.getLength() > 0) {
-            //如果子节点的下一个节点不需要创建的话进入下一个子节点也没用，所以直接退出递归
-            if (labelPath == null) {
-                return;
-            }
-            for (int i = 0; i < nodes.getLength(); i++) {
-                Node node = nodes.item(i);
-                if (nodeDetection(node, checkAttributes)) {
-                    childElement = (Element) node;
-                    createLabel(childElement, labelPath, labels);
-                }
-            }
-        } else {
-            //如果没有符合标准的子元素则直接创建一个
-            childElement = createChildElement(temp);
-            //将子元素添加到父元素下面
-            parentAddChild(parentElement, childElement);
-            //给子元素添加属性
-            if (!updateAttributes.isEmpty()) {
-                for (String updateAttributesName : updateAttributes.keySet()) {
-                    String updateAttributesValue = updateAttributes.get(updateAttributesName);
-                    if ("text".equals(updateAttributesName)){
-                        childElement.setTextContent(updateAttributesValue);
-                    }else {
-                        childElement.setAttribute(updateAttributesName, updateAttributesValue);
-                    }
-                }
-            }
-            //出发出口条件，开始结束递归。
-            if (labelPath == null) {
-                return;
-            }
-            createLabel(childElement, labelPath, labels);
-        }
-
-
+    public static void main(String[] args) {
+        XmlHelp xmlHelp = new XmlHelp("D:\\work\\Project\\liangDemo\\FileDemo\\src\\main\\resources\\ssss.xml");
+        LabelAttrs labelAttrs = new LabelAttrs();
+        HashMap<String, String> peoplesMap = new HashMap<>();
+        peoplesMap.put("name", "人");
+        labelAttrs.setLabelCheckAttributes("peoples", peoplesMap);
+        HashMap<String, String> people1Map = new HashMap<>();
+        people1Map.put("age", "21");
+        people1Map.put("name", "梁荣耀");
+        people1Map.put("text", "喜欢美女");
+        labelAttrs.setLabelUpdateAttributes("people2", people1Map);
+        xmlHelp.createLabel("peoples/people2", labelAttrs);
+        xmlHelp.close();
     }
 
     private boolean nodeDetection(Node node, HashMap<String, String> checkAttributes) {
@@ -231,6 +194,64 @@ public class XmlHelp {
         }
     }
 
+    public void createLabel(Element parentElement, String labelPath, LabelAttrs labels) {
+        //首先我需要获得零时标签temp
+        String temp;
+        if (!labelPath.contains("/")) {
+            //如果路径中不包括"/"的话说明已经到节点末尾了，不需要再次进行递归，制造出口条件
+            temp = labelPath;
+            labelPath = null;
+        } else {
+            temp = labelPath.substring(0, labelPath.indexOf("/"));
+            labelPath = labelPath.substring(labelPath.indexOf("/") + 1);
+        }
+        HashMap<String, String> updateAttributes = labels.getUpdateAttributes(temp);
+        HashMap<String, String> checkAttributes = labels.getCheckAttributes(temp);
+        Element childElement;
+        //判断下一个符合标准的子节点是否存在，如果不存在则创建一个新的子节点
+        NodeList nodes = parentElement.getElementsByTagName(temp);
+        if (nodes != null && nodes.getLength() > 0) {
+            //如果子节点的下一个节点不需要创建的话进入下一个子节点也没用，所以直接退出递归
+            if (labelPath == null) {
+                return;
+            }
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+                if (nodeDetection(node, checkAttributes)) {
+                    childElement = (Element) node;
+                    createLabel(childElement, labelPath, labels);
+                }
+            }
+        } else {
+            //如果没有符合标准的子元素则直接创建一个
+            childElement = createChildElement(temp);
+            //将子元素添加到父元素下面
+            parentAddChild(parentElement, childElement);
+            //给子元素添加属性
+            if (!updateAttributes.isEmpty()) {
+                for (String updateAttributesName : updateAttributes.keySet()) {
+                    String updateAttributesValue = updateAttributes.get(updateAttributesName);
+                    if ("text".equals(updateAttributesName)){
+                        childElement.setTextContent(updateAttributesValue);
+                    }else {
+                        childElement.setAttribute(updateAttributesName, updateAttributesValue);
+                    }
+                }
+            }
+            //出发出口条件，开始结束递归。
+            if (labelPath == null) {
+                return;
+            }
+            createLabel(childElement, labelPath, labels);
+        }
+
+
+    }
+
+    private boolean nodeSisEmpty(NodeList nodes) {
+        return (nodes == null || nodes.getLength() == 0);
+    }
+
     public void close() {
         FileOutputStream out = null;
         try {
@@ -240,6 +261,7 @@ public class XmlHelp {
             DOMSource domSource = new DOMSource(document);
             out = new FileOutputStream(file);
             StreamResult xmlResult = new StreamResult(out);
+            transformer.setOutputProperty(OutputKeys.ENCODING, ENCODING);
             transformer.transform(domSource, xmlResult);
         } catch (Exception e) {
             System.out.println("文件保存失败");
@@ -255,17 +277,12 @@ public class XmlHelp {
         }
     }
 
-    private boolean nodeSisEmpty(NodeList nodes) {
-        return (nodes == null || nodes.getLength() == 0);
-    }
-
-
     public String getFileXml() {
         File file = new File(url);
-        InputStream is = null;
+        InputStream is;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
-        int temp = -1;
+        int temp;
         try {
             is = new FileInputStream(file);
             while ((temp = is.read(buffer)) != -1) {
@@ -276,21 +293,5 @@ public class XmlHelp {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    public static void main(String[] args) {
-        XmlHelp xmlHelp = new XmlHelp("D:\\stduy\\CloudeProject\\liangDemo\\FileDemo\\src\\main\\resources\\ssss.xml");
-        LabelAttrs labelAttrs = new LabelAttrs();
-        HashMap<String, String> peoplesMap = new HashMap<>();
-        peoplesMap.put("name", "人");
-        labelAttrs.setLabelCheckAttributes("peoples", peoplesMap);
-        HashMap<String, String> people1Map = new HashMap<>();
-        people1Map.put("age", "21");
-        people1Map.put("name", "梁荣耀");
-        people1Map.put("text", "喜欢美女");
-        labelAttrs.setLabelUpdateAttributes("people2", people1Map);
-        xmlHelp.createLabel("peoples/people2", labelAttrs);
-        xmlHelp.close();
     }
 }
