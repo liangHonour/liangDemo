@@ -6,52 +6,100 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class LabelAttrs {
-    private final LinkedList<Label> labels;
+
+    /**
+     * 首节点
+     */
+    private Label node;
+    /**
+     * 下一个节点
+     */
+    private LabelAttrs next;
+    /**
+     * 尾巴节点
+     */
+    private LabelAttrs tailNode;
 
     public LabelAttrs() {
-        this.labels = new LinkedList<>();
+
+    }
+
+    public LabelAttrs(Label node) {
+        this.node = node;
     }
 
     /**
-     * 获取当前的标签
+     * 获取下一个标签内容
      *
-     * @return 标签的属性
+     * @return 标签
      */
-    public Label getAttrs() {
+    public LabelAttrs getAttrs() {
         if (isEmpty()) {
             return null;
         }
-        return labels.pop();
+        return this.next;
+    }
+
+    public LabelAttrs next() {
+        return this.next;
     }
 
     public boolean isEmpty() {
-        return labels.isEmpty();
+        return this.next == null;
     }
-
 
     public void addLabel(String labelName, String... attrs) {
         HashMap<String, String> attrMap = new HashMap<>();
+        Label label = null;
         if (attrs.length == 0) {
-            labels.add(new Label(labelName, attrMap));
-            return;
-        }
-        for (String attr : attrs) {
-            if (attr == null) {
-                continue;
+            label = new Label(labelName, attrMap);
+        } else {
+            for (String attr : attrs) {
+                if (attr == null) {
+                    continue;
+                }
+                String key;
+                String value;
+                if (!attr.contains("=")) {
+                    key = attr;
+                    value = "";
+                } else {
+                    String[] split = attr.split("=");
+                    key = split[0];
+                    value = split[1];
+                }
+                attrMap.put(key, value);
             }
-            String key;
-            String value;
-            if (!attr.contains("=")) {
-                key = attr;
-                value = "";
-            } else {
-                String[] split = attr.split("=");
-                key = split[0];
-                value = split[1];
-            }
-            attrMap.put(key, value);
+            label = new Label(labelName, attrMap);
         }
-        labels.add(new Label(labelName, attrMap));
+        /**
+         * 如果node未空则说明这是一个新对象，对他进行初始化
+         */
+        if (node == null) {
+            node = label;
+            tailNode = this;
+        } else {
+            LabelAttrs labelAttrs = new LabelAttrs(label);
+            tailNode.setNext(labelAttrs);
+            tailNode = tailNode.next;
+        }
+
+    }
+
+    public Label getNode() {
+        return node;
+    }
+
+    public void setNode(Label node) {
+        this.node = node;
+    }
+
+    public LabelAttrs getNext() {
+        return next;
+    }
+
+    public void setNext(LabelAttrs next) {
+        this.next = next;
     }
 
     class Label {
@@ -63,4 +111,7 @@ public class LabelAttrs {
             this.attrs = attrs;
         }
     }
+
+
 }
+

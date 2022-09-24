@@ -42,7 +42,8 @@ public class XmlHelp {
     }
 
     private void updateLabel(Element root, LabelAttrs labels, boolean flag) {
-        LabelAttrs.Label label = labels.getAttrs();
+//        LabelAttrs.Label label = labels.getAttrs();
+        LabelAttrs.Label label = null;
         if (label == null) {
             return;
         }
