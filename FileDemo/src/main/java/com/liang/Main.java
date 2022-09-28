@@ -1,14 +1,9 @@
 package com.liang;
 
-import com.liang.xmlHelp2.LabelAttrs;
-import com.liang.xmlHelp2.XmlHelp;
-import com.liang.xmlParse.tmp.LinkedLabel;
-import com.liang.xmlParse.util.Util;
+import com.liang.xmlHelp.XmlHelp;
+
 
 import org.junit.Test;
-
-import java.io.File;
-import java.util.ArrayList;
 
 
 public class Main {
@@ -25,16 +20,6 @@ public class Main {
 
     }
 
-    @Test
-    public void LinkedTest() {
-        com.liang.xmlParse.tmp.XmlHelp xmlHelp = new com.liang.xmlParse.tmp.XmlHelp("D:\\work\\Project\\liangDemo\\FileDemo\\src\\main\\resources\\ssss.xml");
-        LinkedLabel linkedLabel = new LinkedLabel();
-        linkedLabel.setLabel("person2", "aaa=sys");
-        linkedLabel.setLabel("person3", "name=two");
-        linkedLabel.setLabel("name", "file=sda");
-        xmlHelp.updateLabel(linkedLabel);
-        xmlHelp.close();
-    }
 
 
     @Test

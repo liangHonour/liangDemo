@@ -1,4 +1,4 @@
-package com.liang.xmlHelp2;
+package com.liang.xmlHelp;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,17 +23,9 @@ public class XmlHelp {
     private Document document;
     private Element root;
 
-
     public XmlHelp(String url) {
         this.url = url;
         initXmlHelp();
-    }
-
-    public static void main(String[] args) {
-        XmlHelp xmlHelp = new XmlHelp("D:\\work\\Project\\liangDemo\\FileDemo\\src\\main\\resources\\ssss.xml");
-
-
-        xmlHelp.close();
     }
 
     public void updateLabel(LabelAttrs labels) {
@@ -55,23 +47,20 @@ public class XmlHelp {
         if (labels == null) {
             return;
         }
-        LabelAttrs.Label label = labels.getNode();
+        Label label = labels.getNode();
         if (label == null) {
             return;
         }
-        String labelName = label.getLabelName();
-        Map<String, String> attrs = label.getAttrs();
+        String labelName = label.labelName;
+        Map<String, String> attrs = label.attrs;
         //获取当前标签下所有相似的标签，标签集
         NodeList nodes = root.getElementsByTagName(labelName);
         //如果节点为空并且不需要创建新节点则直接返回
         if (nodeSisEmpty(nodes)) {
             if (flag) {
-                Element childElement = createChildElement(root, label);
-                updateLabel(childElement, labels.next(), true);
-                return;
-            } else {
-                return;
+                updateLabel(createChildElement(root, label), labels.next(), true);
             }
+            return;
         }
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -100,8 +89,7 @@ public class XmlHelp {
                     if (checkFlag) {
                         updateLabel(element, labels.next(), flag);
                     } else if (flag) {
-                        Element childElement = createChildElement(root, label);
-                        updateLabel(childElement, labels.next(), true);
+                        updateLabel(createChildElement(root, label), labels.next(), true);
                     }
                 }
             }
@@ -136,10 +124,10 @@ public class XmlHelp {
      * @param label         子节点
      * @return 子节点
      */
-    private Element createChildElement(Element parentElement, LabelAttrs.Label label) {
-        Element childElement = document.createElement(label.getLabelName());
+    private Element createChildElement(Element parentElement, Label label) {
+        Element childElement = document.createElement(label.labelName);
         parentElement.appendChild(childElement);
-        for (Map.Entry<String, String> attr : label.getAttrs().entrySet()) {
+        for (Map.Entry<String, String> attr : label.attrs.entrySet()) {
             childElement.setAttribute(attr.getKey(), attr.getValue());
         }
         return childElement;
@@ -231,8 +219,7 @@ public class XmlHelp {
     }
 
 
-    public static class  LabelAttrs {
-
+    public static class LabelAttrs {
         /**
          * 首节点
          */
@@ -250,20 +237,8 @@ public class XmlHelp {
 
         }
 
-        private LabelAttrs(LabelAttrs.Label node) {
+        private LabelAttrs(Label node) {
             this.node = node;
-        }
-
-        /**
-         * 获取下一个标签内容
-         *
-         * @return 标签
-         */
-        public LabelAttrs getAttrs() {
-            if (isEmpty()) {
-                return null;
-            }
-            return this.next;
         }
 
         public LabelAttrs next() {
@@ -276,10 +251,8 @@ public class XmlHelp {
 
         public void addLabel(String labelName, String... attrs) {
             HashMap<String, String> attrMap = new HashMap<>();
-            LabelAttrs.Label label = null;
-            if (attrs.length == 0) {
-                label = new LabelAttrs.Label(labelName, attrMap);
-            } else {
+            Label label;
+            if (attrs.length != 0) {
                 for (String attr : attrs) {
                     if (attr == null) {
                         continue;
@@ -296,11 +269,9 @@ public class XmlHelp {
                     }
                     attrMap.put(key, value);
                 }
-                label = new LabelAttrs.Label(labelName, attrMap);
             }
-            /**
-             * 如果node未空则说明这是一个新对象，对他进行初始化
-             */
+            label = new Label(labelName, attrMap);
+            //如果node未空则说明这是一个新对象，对他进行初始化
             if (node == null) {
                 node = label;
                 tailNode = this;
@@ -311,35 +282,13 @@ public class XmlHelp {
             }
         }
 
-        public LabelAttrs.Label getNode() {
+        public Label getNode() {
             return node;
         }
 
         public void setNext(LabelAttrs next) {
             this.next = next;
         }
-
-        class Label {
-            public String labelName;
-            public Map<String, String> attrs;
-
-            Label(String labelName, Map<String, String> attrs) {
-                this.labelName = labelName;
-                this.attrs = attrs;
-            }
-
-            public String getLabelName() {
-                return labelName;
-            }
-
-            public Map<String, String> getAttrs() {
-                return attrs;
-            }
-
-
-        }
-
-
     }
 
     static class Label {
@@ -350,22 +299,5 @@ public class XmlHelp {
             this.labelName = labelName;
             this.attrs = attrs;
         }
-
-        public String getLabelName() {
-            return labelName;
-        }
-
-        public void setLabelName(String labelName) {
-            this.labelName = labelName;
-        }
-
-        public Map<String, String> getAttrs() {
-            return attrs;
-        }
-
-        public void setAttrs(Map<String, String> attrs) {
-            this.attrs = attrs;
-        }
-
     }
 }
