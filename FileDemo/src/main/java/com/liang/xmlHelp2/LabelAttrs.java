@@ -24,7 +24,7 @@ public class LabelAttrs {
 
     }
 
-    public LabelAttrs(Label node) {
+    private LabelAttrs(Label node) {
         this.node = node;
     }
 
@@ -110,6 +110,23 @@ public class LabelAttrs {
             this.labelName = labelName;
             this.attrs = attrs;
         }
+
+        public String getLabelName() {
+            return labelName;
+        }
+
+        public void setLabelName(String labelName) {
+            this.labelName = labelName;
+        }
+
+        public Map<String, String> getAttrs() {
+            return attrs;
+        }
+
+        public void setAttrs(Map<String, String> attrs) {
+            this.attrs = attrs;
+        }
+
     }
 
 

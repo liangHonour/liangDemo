@@ -8,6 +8,9 @@ import java.nio.channels.FileChannel;
 
 import java.nio.channels.FileLock;
 
+/**
+ * 文件锁
+ */
 public class FileLockUtil {
     private static RandomAccessFile raf;
     private static FileChannel fc;
