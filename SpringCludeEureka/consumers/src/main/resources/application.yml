@@ -1,0 +1,12 @@
+server:
+  port: 8886
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.0.16.12:8443/server-1.0/eureka/
+spring:
+  application:
+    name: consumers
+#  jmx:
+#    enabled: false
+#    default-domain: consumer

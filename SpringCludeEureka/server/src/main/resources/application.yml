@@ -1,0 +1,11 @@
+server:
+  port: 8443
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8443/server-1.0/eureka
+spring:
+  jmx:
+    enabled: false
