@@ -3,10 +3,10 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://10.0.16.12:8443/server-1.0/eureka/
+      defaultZone: http://localhost:8443/eureka
 spring:
   application:
     name: providers
-#  jmx:
-#    enabled: false
-#    default-domain: provider
+  jmx:
+    enabled: false
+    default-domain: provider
