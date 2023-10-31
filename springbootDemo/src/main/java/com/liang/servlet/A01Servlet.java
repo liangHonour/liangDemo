@@ -13,8 +13,7 @@ import java.io.IOException;
  * 获取不到参数Bug测试Servlet
  */
 @WebServlet(urlPatterns = "/A01Servlet")
-public class
-A01Servlet extends HttpServlet  {
+public class A01Servlet extends HttpServlet  {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         int a = 5;
